@@ -5,12 +5,21 @@ const morgan = require('morgan');
 const { PORT } = process.env;
 const v1router = require('./routes/v1.routes');
 
+
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 
-// 
+// router url main
 app.use("/api/v1", v1router);
+app.get('/', (req, res) => {
+  return res.json({
+    status: true,
+    message: "Welcome to Apis - Pariwisata",
+    error: null,
+    data: null,
+  });
+});
 
 // // error handling 404
 // app.use((req, res, next) => {
@@ -26,7 +35,7 @@ app.use("/api/v1", v1router);
 //   res.status(500).json({
 //     status: false,
 //     message: 'Internal Server Error',
-//     data: err.message
+//     data: err
 //   });
 // });
 
