@@ -1,0 +1,23 @@
+###
+POST http://localhost:3000/api/v1/register/
+Content-Type: application/json
+
+{
+  "email": "user01@gmail.com",
+  "password": "user123",
+  "password_confirmation": "user123"
+}
+
+####
+POST http://localhost:3000/api/v1/login/
+Content-Type: application/json
+
+{
+  "email": "user@gmail.com",
+  "password": "user123"
+}
+
+####
+
+GET http://localhost:3000/api/v1/whoami/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk5MTczMzExfQ.SnVUkiIma9oHxf9j95-ADwMJJd0z0ScBXmFl6lBsF0o
