@@ -42,7 +42,7 @@ module.exports = {
       }
 
       // simpan url 'foto_profile' lama
-      const file_id = profileExist.foto_profile.toString('base64');
+      const file_id = profileExist.foto_profile;
 
       // Hapus foto lama dari Imagekit jika ada
       if (file_id) {

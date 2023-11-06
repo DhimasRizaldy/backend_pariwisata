@@ -15,11 +15,16 @@ const { register, login, whoami, createUser, getAllUser, getDetailUser, updateUs
 
 // import profile controllers
 const { updateProfile, deleteImage } = require('../controllers/profile.controllers')
+
 // import wisata controllers
+const { createWisata, getAllWisata, getDetailWisata, updateWisata, deleteWisata } = require("../controllers/wisata.controllers");
+
 
 // import daerah controllers
+const { createDaerah, getAllDaerah, updateDaerah, deleteDaerah } = require("../controllers/daerah.controllers");
 
 // import kategoriwisata controllers
+const { createKategori, getAllKategori, updateKategori, deleteKategori } = require("../controllers/kategoriwisata.controllers");
 
 // import rekomendasi controllers
 
@@ -56,11 +61,25 @@ router.put('/user/:id', updateUser);
 // Router url profile
 router.put('/profile/:id', image.single('foto_profile'), updateProfile);
 router.put('/profileImage/:id', deleteImage);
+
 // Router url wisata
+router.post("/wisata", image.single('foto_wisata'), createWisata);
+router.get("/wisata", getAllWisata);
+router.get("/wisata/:id", getDetailWisata);
+router.put("/wisata/:id", image.single('foto_wisata'), updateWisata);
+router.delete("/wisata/:id", deleteWisata);
 
 // Router url kategoriwisata
+router.get("/kategoriWisata", getAllKategori);
+router.post("/kategoriWisata", createKategori);
+router.put("/kategoriWisata/:id", updateKategori);
+router.delete("/kategoriWisata/:id", deleteKategori);
 
 // Router url daerah
+router.get("/daerah", getAllDaerah);
+router.post("/daerah", createDaerah);
+router.put("/daerah/:id", updateDaerah);
+router.delete("/daerah/:id", deleteDaerah);
 
 // Router url rekomendasi
 

@@ -48,10 +48,10 @@ model Wisata {
   alamat      String
   deskripsi   String
   jam_operasi String
-  foto_wisata String
   harga_tiket String
   tanggal     DateTime
   userId      Int
+  foto_wisata String
   rekomendasi Rekomendasi[]
   ulasan      Ulasan[]
   user        User           @relation(fields: [userId], references: [id])

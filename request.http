@@ -40,3 +40,21 @@ Content-Type: application/json
   "email": "admin04@gmail.com",
   "password": "admin123"
 }
+
+
+#### update daerah
+PUT http://localhost:3000/api/v1/daerah/1
+Content-Type: application/json
+
+{
+  "nama_daerah": "Solo"
+}
+
+
+#### update kategori wisata
+PUT http://localhost:3000/api/v1/kategoriWisata/4
+Content-Type: application/json
+
+{
+  "nama_kategori": "Wisata Danau"
+}
