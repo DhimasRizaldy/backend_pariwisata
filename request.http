@@ -58,3 +58,34 @@ Content-Type: application/json
 {
   "nama_kategori": "Wisata Danau"
 }
+
+#### post rekomendasi
+POST http://localhost:3000/api/v1/rekomendasi/
+Content-Type: application/json
+
+{
+  "userId": 6,
+  "wisataId": 1
+}
+
+#### post rekomendasi
+POST http://localhost:3000/api/v1/rekomendasi
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "wisataId": 3
+}
+
+#### update rekomendasi
+PUT http://localhost:3000/api/v1/rekomendasi/5
+Content-Type: application/json
+
+{
+  "userId": 6,
+  "wisataId": 3
+}
+
+#### delete rekomendasi
+DELETE http://localhost:3000/api/v1/rekomendasi/8
+Content-Type: application/json

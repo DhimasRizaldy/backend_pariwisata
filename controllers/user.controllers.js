@@ -203,6 +203,9 @@ module.exports = {
         where: { id: Number(id) },
         include: {
           profile: true,
+          wisata: true,
+          rekomendasi: true,
+          ulasan: true
         }
       });
 
@@ -230,7 +233,7 @@ module.exports = {
       let { id } = req.params;
       let { email, password } = req.body;
       let role = 'user';
-      
+
       if (!password) {
         return res.status(400).json({
           status: false,
@@ -239,12 +242,13 @@ module.exports = {
           data: null
         });
       }
+      let encryptedPassword = await bcrypt.hash(password, 10);
 
       let updateOperation = await prisma.user.update({
         where: { id: Number(id) },
         data: {
           email,
-          password,
+          password: encryptedPassword,
           role: role
 
         }

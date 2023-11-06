@@ -76,7 +76,6 @@ model Daerah {
 // create rekomendasi
 model Rekomendasi {
   id           Int      @id @default(autoincrement())
-  vote         String
   tanggal_vote DateTime
   userId       Int
   wisataId     Int

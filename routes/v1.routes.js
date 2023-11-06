@@ -27,6 +27,7 @@ const { createDaerah, getAllDaerah, updateDaerah, deleteDaerah } = require("../c
 const { createKategori, getAllKategori, updateKategori, deleteKategori } = require("../controllers/kategoriwisata.controllers");
 
 // import rekomendasi controllers
+const { createRekomendasi, getAllRekomendasi, updateRekomendasi, deleteRekomendasi } = require("../controllers/rekomendasi.controllers");
 
 // import ulasan controllers
 
@@ -82,6 +83,10 @@ router.put("/daerah/:id", updateDaerah);
 router.delete("/daerah/:id", deleteDaerah);
 
 // Router url rekomendasi
+router.post("/rekomendasi", createRekomendasi);
+router.get("/rekomendasi", getAllRekomendasi);
+router.put("/rekomendasi/:id", updateRekomendasi);
+router.delete("/rekomendasi/:id", deleteRekomendasi);
 
 // Router url ulasan
 

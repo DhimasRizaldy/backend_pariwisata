@@ -88,7 +88,13 @@ module.exports = {
   getDetailWisata: async (req, res, next) => {
     try {
       let { id } = req.params;
-      let Wisata = await prisma.wisata.findUnique({ where: { id: Number(id) } });
+      let Wisata = await prisma.wisata.findUnique({
+        where: { id: Number(id) },
+        include: {
+          rekomendasi: true,
+          ulasan: true
+        }
+      });
 
       if (!Wisata) {
         return res.status(400).json({
