@@ -89,3 +89,27 @@ Content-Type: application/json
 #### delete rekomendasi
 DELETE http://localhost:3000/api/v1/rekomendasi/14
 Content-Type: application/json
+
+
+
+#### post daerah
+PUT  http://localhost:3000/api/v1/daerah/6
+Content-Type: application/json
+
+{
+  "nama_daerah": "Wisata Air Terjun"
+}
+
+#### post kategori
+PUT  http://localhost:3000/api/v1/daerah/6
+Content-Type: application/json
+
+{
+  "nama_daerah": "Pringsewu"
+}
+
+####
+GET  http://localhost:3000/api/v1/daerah/
+
+####
+GET  http://localhost:3000/api/v1/kategoriWisata/
