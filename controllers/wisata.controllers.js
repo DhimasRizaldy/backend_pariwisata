@@ -12,26 +12,23 @@ module.exports = {
 
       let kategoriId = parseInt(req.body.kategoriId, 10); // Mengonversi ke integer
       let daerahId = parseInt(req.body.daerahId, 10);   // Mengonversi ke integer
-      let userId = parseInt(req.body.userId, 10);   // Mengonversi ke integer
+      let userId = parseInt(req.body.userId, 10);
+
+      let tanggal = new Date().toISOString();
+
+      let url = null;
 
       const imageFile = req.file;
 
-      if (!imageFile) {
-        return res.status(400).json({
-          status: false,
-          message: 'Image file not found',
+      if (imageFile) {
+        const strFile = imageFile.buffer.toString('base64');
+
+        const { url } = await imagekit.upload({
+          fileName: Date.now() + path.extname(imageFile.originalname),
+          file: strFile,
         });
       }
 
-      const strFile = imageFile.buffer.toString('base64');
-
-      // Mengonversi tanggal ke format ISO-8601
-      let tanggal = new Date().toISOString(); // Menggunakan tanggal dan waktu saat ini
-
-      const { url } = await imagekit.upload({
-        fileName: Date.now() + path.extname(imageFile.originalname),
-        file: strFile,
-      });
       let newWisata = await prisma.wisata.create({
         data: {
           nama_wisata,
@@ -120,29 +117,41 @@ module.exports = {
       let { id } = req.params;
       let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket } = req.body;
 
-      let kategoriId = parseInt(req.body.kategoriId, 10); // Mengonversi ke integer
-      let daerahId = parseInt(req.body.daerahId, 10);   // Mengonversi ke integer
-      let userId = parseInt(req.body.userId, 10);   // Mengonversi ke integer
+      let kategoriId = parseInt(req.body.kategoriId, 10);
 
-      // Mengonversi tanggal ke format ISO-8601
-      let tanggal = new Date().toISOString(); // Menggunakan tanggal dan waktu saat ini
+      let daerahId = parseInt(req.body.daerahId, 10);
 
-      const imageFile = req.file;
+      let userId = parseInt(req.body.userId, 10);
 
-      if (!imageFile) {
+      let tanggal = new Date().toISOString();
+
+      let url = null;
+
+      let profileExist = await prisma.wisata.findUnique({
+        where: { id: Number(id) }
+      });
+
+      if (!profileExist) {
         return res.status(400).json({
           status: false,
-          message: 'Image file not found',
+          message: "Bad Request",
+          err: 'Profile not found!',
+          data: null
         });
       }
 
-      const strFile = imageFile.buffer.toString('base64');
+      const imageFile = req.file;
 
-      const { url } = await imagekit.upload({
-        fileName: Date.now() + path.extname(imageFile.originalname),
-        file: strFile,
-      });
+      if (imageFile) {
+        const strFile = imageFile.buffer.toString('base64');
 
+        const { url: uploadedUrl } = await imagekit.upload({
+          fileName: Date.now() + path.extname(imageFile.originalname),
+          file: strFile,
+        });
+
+        url = uploadedUrl;
+      }
       let updateOperation = await prisma.wisata.update({
         where: { id: Number(id) },
         data: {

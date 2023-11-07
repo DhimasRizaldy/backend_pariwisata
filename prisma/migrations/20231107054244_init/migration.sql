@@ -15,11 +15,11 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Profile" (
     "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
     "nama" TEXT,
     "jenis_kelamin" TEXT,
     "alamat" TEXT,
     "foto_profile" TEXT,
-    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );
@@ -33,10 +33,10 @@ CREATE TABLE "Wisata" (
     "alamat" TEXT NOT NULL,
     "deskripsi" TEXT NOT NULL,
     "jam_operasi" TEXT NOT NULL,
-    "foto_wisata" TEXT NOT NULL,
     "harga_tiket" TEXT NOT NULL,
     "tanggal" TIMESTAMP(3) NOT NULL,
     "userId" INTEGER NOT NULL,
+    "foto_wisata" TEXT,
 
     CONSTRAINT "Wisata_pkey" PRIMARY KEY ("id")
 );
@@ -60,7 +60,6 @@ CREATE TABLE "Daerah" (
 -- CreateTable
 CREATE TABLE "Rekomendasi" (
     "id" SERIAL NOT NULL,
-    "vote" TEXT NOT NULL,
     "tanggal_vote" TIMESTAMP(3) NOT NULL,
     "userId" INTEGER NOT NULL,
     "wisataId" INTEGER NOT NULL,
@@ -73,9 +72,9 @@ CREATE TABLE "Ulasan" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "wisataId" INTEGER NOT NULL,
-    "judul" TEXT NOT NULL,
     "tanggal_ulasan" TIMESTAMP(3) NOT NULL,
-    "foto_ulasan" TEXT NOT NULL,
+    "judul" TEXT NOT NULL,
+    "foto_ulasan" TEXT,
 
     CONSTRAINT "Ulasan_pkey" PRIMARY KEY ("id")
 );
@@ -85,6 +84,12 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Rekomendasi_userId_key" ON "Rekomendasi"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Rekomendasi_wisataId_key" ON "Rekomendasi"("wisataId");
 
 -- AddForeignKey
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

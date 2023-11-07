@@ -30,6 +30,8 @@ const { createKategori, getAllKategori, updateKategori, deleteKategori } = requi
 const { createRekomendasi, getAllRekomendasi, updateRekomendasi, deleteRekomendasi } = require("../controllers/rekomendasi.controllers");
 
 // import ulasan controllers
+const { createUlasan, updateUlasan, getAllUlasan, getDetailUlasan, deleteUlasan } = require("../controllers/ulasan.controllers");
+
 
 
 // import multer
@@ -89,5 +91,10 @@ router.put("/rekomendasi/:id", updateRekomendasi);
 router.delete("/rekomendasi/:id", deleteRekomendasi);
 
 // Router url ulasan
+router.post("/ulasan", image.single('foto_ulasan'), createUlasan);
+router.put('/ulasan/:id', image.single('foto_ulasan'), updateUlasan);
+router.get('/ulasan/:id', getDetailUlasan);
+router.delete('/ulasan/:id', deleteUlasan);
+router.get('/ulasan', getAllUlasan);
 
 module.exports = router;

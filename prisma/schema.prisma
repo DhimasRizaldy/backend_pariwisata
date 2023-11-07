@@ -51,7 +51,7 @@ model Wisata {
   harga_tiket String
   tanggal     DateTime
   userId      Int
-  foto_wisata String
+  foto_wisata String?
   rekomendasi Rekomendasi[]
   ulasan      Ulasan[]
   user        User           @relation(fields: [userId], references: [id])
@@ -77,7 +77,7 @@ model Daerah {
 model Rekomendasi {
   id           Int      @id @default(autoincrement())
   tanggal_vote DateTime
-  userId       Int
+  userId       Int      @unique
   wisataId     Int
   user         User     @relation(fields: [userId], references: [id])
   wisata       Wisata   @relation(fields: [wisataId], references: [id])
@@ -88,8 +88,9 @@ model Ulasan {
   id             Int      @id @default(autoincrement())
   userId         Int
   wisataId       Int
-  judul          String
   tanggal_ulasan DateTime
+  judul          String
+  isi_ulasan     String
   foto_ulasan    String
   user           User     @relation(fields: [userId], references: [id])
   wisata         Wisata   @relation(fields: [wisataId], references: [id])

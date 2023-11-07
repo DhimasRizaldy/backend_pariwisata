@@ -14,7 +14,7 @@ module.exports = {
 
       userId = Number(userId);
 
-      let strFile = req.file.buffer.toString('base64');
+      let url = null;
 
       let profileExist = await prisma.profile.findUnique({
         where: { id: Number(id) }
@@ -23,47 +23,29 @@ module.exports = {
       if (!profileExist) {
         return res.status(400).json({
           status: false,
-          message: 'Bad Request',
+          message: "Bad Request",
           err: 'Profile not found!',
           data: null
         });
       }
 
-      let userIdExist = await prisma.user.findUnique({
-        where: { id: Number(id) }
-      });
-      if (!userIdExist) {
-        return res.status(400).json({
-          status: false,
-          message: "Bad Request",
-          err: 'userId not found!',
-          data: null
+      const imageFile = req.file;
+
+      if (imageFile) {
+        const strFile = imageFile.buffer.toString('base64');
+
+        const { url: uploadedUrl } = await imagekit.upload({
+          fileName: Date.now() + path.extname(imageFile.originalname),
+          file: strFile,
         });
+
+        url = uploadedUrl;
       }
-
-      // simpan url 'foto_profile' lama
-      const file_id = profileExist.foto_profile;
-
-      // Hapus foto lama dari Imagekit jika ada
-      if (file_id) {
-        imagekit.deleteFile("file_id", function (error, result) {
-          if (error) {
-            console.log('Gagal menghapus foto lama:', error);
-          } else {
-            console.log('Berhasil menghapus foto lama:', result);
-          }
-        });
-      }
-
-      let { url } = await imagekit.upload({
-        fileName: Date.now() + path.extname(req.file.originalname),
-        file: strFile
-      });
 
       let updateProfile = await prisma.profile.update({
         where: { id: Number(id) },
         data: {
-          userId,
+          user: { connect: { id: userId } },
           nama,
           jenis_kelamin,
           alamat,

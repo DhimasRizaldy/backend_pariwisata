@@ -26,13 +26,42 @@ module.exports = {
         });
       }
 
+      // Check if user has already voted on the given wisata
+      const rekomendasiWisataExists = await prisma.rekomendasi.findMany({
+        where: {
+          user: {
+            id: userId
+          },
+          wisata: {
+            id: wisataId
+          }
+        }
+      });
+
+      if (rekomendasiWisataExists.length > 0) {
+        return res.status(400).json({
+          status: false,
+          message: "User has already voted for this wisata",
+          data: null
+        });
+      }
+
       let newRekomendasiWisata = await prisma.rekomendasi.create({
         data: {
           tanggal_vote,
-          user: { connect: { id: userId } }, // Menggunakan id: userId
-          wisata: { connect: { id: wisataId } } // Menggunakan id: wisataId
-        },
+          user: {
+            connect: {
+              id: userId
+            }
+          },
+          wisata: {
+            connect: {
+              id: wisataId
+            }
+          }
+        }
       });
+
       res.status(201).json({
         status: true,
         message: "Rekomendasi Wisata Berhasil Dibuat!",
