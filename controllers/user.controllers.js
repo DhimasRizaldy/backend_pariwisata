@@ -17,7 +17,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          err: 'please ensure that the password and password confirmation match!',
+          err: 'Pastikan pasword dan konfirmasi_password cocok!',
           data: null
         });
       }
@@ -27,7 +27,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          err: 'user has already been used!',
+          err: 'Email pengguna telah didaftarkan',
           data: null
         });
       }
@@ -56,7 +56,7 @@ module.exports = {
 
       return res.status(201).json({
         status: true,
-        message: 'Created User Successfully!',
+        message: 'Data user berhasil dibuat!',
         err: null,
         data: { user }
       });
@@ -75,7 +75,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          err: 'invalid email or password!',
+          err: 'Email atau Password tidak valid!',
           data: null
         });
       }
@@ -85,7 +85,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          err: 'invalid email or password!',
+          err: 'Email atau Password tidak valid!',
           data: null
         });
       }
@@ -126,7 +126,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          err: 'user has already been used!',
+          err: 'Email pengguna telah didaftarkan!',
           data: null
         });
       }
@@ -155,7 +155,7 @@ module.exports = {
 
       return res.status(201).json({
         status: true,
-        message: 'Created admin Successfully!',
+        message: 'Data admin berhasil dibuat!',
         err: null,
         data: { user }
       });
@@ -213,7 +213,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          data: 'No Galery Found With Id ' + id
+          data: 'Data user tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -256,7 +256,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Update user successfuly!',
+        message: 'Data user berhasil diperbarui!',
         data: updateOperation
       });
     } catch (err) {

@@ -24,7 +24,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: "Bad Request",
-          err: 'Profile not found!',
+          err: 'Profile tidak ditemukan!',
           data: null
         });
       }
@@ -55,7 +55,7 @@ module.exports = {
 
       return res.status(200).json({
         status: true,
-        message: 'Profile Updated!',
+        message: 'Data profile sukses diperbarui!',
         err: null,
         data: { updateProfile }
       });
@@ -79,7 +79,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete Image Successfuly!',
+        message: 'Data profile sukses dihapus!',
         data: updateOperation
       });
     } catch (err) {
@@ -101,7 +101,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete Image Successfuly!',
+        message: 'Foto profile sukses dihapus!',
         data: updateOperation
       });
     } catch (err) {

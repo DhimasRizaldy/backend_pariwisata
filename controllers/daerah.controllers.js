@@ -15,7 +15,7 @@ module.exports = {
       });
       res.status(201).json({
         status: true,
-        message: "Create Daerah Successfuly!",
+        message: "Data daerah sukses dibuat!",
         data: newDaerah
       })
     } catch (err) {
@@ -65,7 +65,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Update daerah successfuly!',
+        message: 'Data daerah sukses diperbarui!',
         data: updateOperation
       });
     } catch (err) {
@@ -88,7 +88,7 @@ module.exports = {
         return res.status(404).json({
           status: false,
           message: 'Not Found',
-          data: 'No Daerah Found With Id ' + id
+          data: 'Data daerah tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -100,7 +100,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete daerah successfully!',
+        message: 'Data daerah sukses dihapus!',
         data: deleteOperation
       });
     } catch (err) {

@@ -113,3 +113,14 @@ GET  http://localhost:3000/api/v1/daerah/
 
 ####
 GET  http://localhost:3000/api/v1/kategoriWisata/
+
+#### search wisata
+POST  http://localhost:3000/api/v1/wisata/search/
+Content-Type: application/json
+
+# {
+#   "nama_daerah": "Selatan"
+# }
+
+####
+GET http://localhost:3000/api/v1/wisata/search/?pantai

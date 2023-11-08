@@ -46,7 +46,7 @@ module.exports = {
 
       res.status(201).json({
         status: true,
-        message: "Create Wisata Successfuly!",
+        message: "Data wisata berhasil dibuat!",
         data: newWisata
       })
     } catch (err) {
@@ -97,7 +97,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          data: 'No Wisata Found With Id ' + id
+          data: 'Data wisata tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -127,15 +127,15 @@ module.exports = {
 
       let url = null;
 
-      let profileExist = await prisma.wisata.findUnique({
+      let wisataExist = await prisma.wisata.findUnique({
         where: { id: Number(id) }
       });
 
-      if (!profileExist) {
+      if (!wisataExist) {
         return res.status(400).json({
           status: false,
           message: "Bad Request",
-          err: 'Profile not found!',
+          err: 'Data wisata tidak ditemukan!',
           data: null
         });
       }
@@ -170,7 +170,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Updated Wisata Succesfully!',
+        message: 'Data wisata berhasi diperbarui!',
         data: updateOperation
       });
     } catch (err) {
@@ -193,7 +193,7 @@ module.exports = {
         return res.status(404).json({
           status: false,
           message: 'Not Found',
-          data: 'No Wisata Found With Id ' + id
+          data: 'Data wisata tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -205,11 +205,125 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete Wisata successfully!',
+        message: 'Data wisata berhasil dihapus!',
         data: deleteOperation
       });
     } catch (err) {
       next(err);
     }
+  },
+
+  // search wisata
+  searchWisata: async (req, res, next) => {
+    try {
+      const { keyword } = req.query;
+
+      if (!keyword) {
+        return res.status(400).json({ message: 'Harap berikan kata kunci pencarian.' });
+      }
+
+      const results = await prisma.wisata.findMany({
+        where: {
+          OR: [
+            {
+              nama_wisata: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              alamat: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              deskripsi: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              kategori: {
+                nama_kategori: {
+                  contains: keyword,
+                  mode: 'insensitive'
+                }
+              }
+            },
+            {
+              daerah: {
+                nama_daerah: {
+                  contains: keyword,
+                  mode: 'insensitive'
+                }
+              }
+            }
+          ]
+        },
+        include: {
+          kategori: true,
+          daerah: true,
+          rekomendasi: { select: { id: true } },
+          ulasan: { select: { id: true } },
+        },
+        orderBy: { tanggal: 'desc' },
+      });
+
+      if (results.length === 0) {
+        return res.status(404).json({
+          status: false,
+          message: 'Data pencarian tidak ditemukan.',
+          data: results,
+        });
+      }
+
+      res.status(200).json({
+        status: true,
+        message: 'Data hasil pencarian Wisata',
+        data: results,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  // Kategori wisata
+  kategoriWisata: async (req, res, next) => {
+    try {
+      const id = parseInt(req.params.id); // Ambil ID kategori dari parameter rute
+
+      // Cari kategori wisata berdasarkan ID
+      const kategori = await prisma.kategoriWisata.findUnique({
+        where: { id: Number(id) },
+        include: {
+          Wisata: {
+            include: {
+              daerah: true,
+            },
+          },
+        },
+      });
+
+      if (!kategori) {
+        return res.status(404).json({ message: 'Kategori wisata tidak ditemukan.' });
+      }
+
+      if (kategori.Wisata.length === 0) {
+        res.status(200).json({
+          status: true,
+          message: 'Data wisata kosong pada kategori ' + kategori.nama_kategori,
+          data: kategori.Wisata,
+        });
+      }
+
+      res.status(200).json({
+        status: true,
+        message: 'Data ' + kategori.nama_kategori,
+        data: kategori.Wisata,
+      });
+    } catch (err) {
+      next(err);
+    }
   }
-}
+};

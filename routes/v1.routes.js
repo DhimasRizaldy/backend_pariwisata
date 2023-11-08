@@ -17,7 +17,7 @@ const { register, login, whoami, createUser, getAllUser, getDetailUser, updateUs
 const { updateProfile, deleteImage } = require('../controllers/profile.controllers')
 
 // import wisata controllers
-const { createWisata, getAllWisata, getDetailWisata, updateWisata, deleteWisata } = require("../controllers/wisata.controllers");
+const { createWisata, getAllWisata, getDetailWisata, updateWisata, deleteWisata, searchWisata, kategoriWisata } = require("../controllers/wisata.controllers");
 
 
 // import daerah controllers
@@ -27,7 +27,7 @@ const { createDaerah, getAllDaerah, updateDaerah, deleteDaerah } = require("../c
 const { createKategori, getAllKategori, updateKategori, deleteKategori } = require("../controllers/kategoriwisata.controllers");
 
 // import rekomendasi controllers
-const { createRekomendasi, getAllRekomendasi, updateRekomendasi, deleteRekomendasi } = require("../controllers/rekomendasi.controllers");
+const { createRekomendasi, getAllRekomendasi, updateRekomendasi, deleteRekomendasi, searchRekomendasiWisata } = require("../controllers/rekomendasi.controllers");
 
 // import ulasan controllers
 const { createUlasan, updateUlasan, getAllUlasan, getDetailUlasan, deleteUlasan } = require("../controllers/ulasan.controllers");
@@ -71,6 +71,8 @@ router.get("/wisata", getAllWisata);
 router.get("/wisata/:id", getDetailWisata);
 router.put("/wisata/:id", image.single('foto_wisata'), updateWisata);
 router.delete("/wisata/:id", deleteWisata);
+router.get("/search_wisata", searchWisata);
+router.get("/kategori_wisata/:id", kategoriWisata);
 
 // Router url kategoriwisata
 router.get("/kategoriWisata", getAllKategori);
@@ -89,6 +91,7 @@ router.post("/rekomendasi", createRekomendasi);
 router.get("/rekomendasi", getAllRekomendasi);
 router.put("/rekomendasi/:id", updateRekomendasi);
 router.delete("/rekomendasi/:id", deleteRekomendasi);
+router.get("/search_rekomendasi_wisata", searchRekomendasiWisata);
 
 // Router url ulasan
 router.post("/ulasan", image.single('foto_ulasan'), createUlasan);

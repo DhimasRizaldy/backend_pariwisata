@@ -15,7 +15,7 @@ module.exports = {
       });
       res.status(201).json({
         status: true,
-        message: "Create kategori Wisata Successfuly!",
+        message: "Data daerah sukses dibuat!",
         data: newkategoriWisata
       })
     } catch (err) {
@@ -65,7 +65,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Update kategori wisata successfuly!',
+        message: 'Data daerah sukses diperbarui!',
         data: updateOperation
       });
     } catch (err) {
@@ -88,7 +88,7 @@ module.exports = {
         return res.status(404).json({
           status: false,
           message: 'Not Found',
-          data: 'No kategori wisata Found With Id ' + id
+          data: 'Data kategori tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -100,7 +100,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete kategori wisata successfully!',
+        message: 'Data kategori sukses dihapus!',
         data: deleteOperation
       });
     } catch (err) {

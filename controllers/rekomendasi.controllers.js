@@ -13,7 +13,7 @@ module.exports = {
       if (isNaN(wisataId)) {
         return res.status(400).json({
           status: false,
-          message: "The parameter wisataId is not a number!",
+          message: "Parameter wisataId yang anda masukkan bukan angka!",
           data: null
         });
       }
@@ -21,7 +21,7 @@ module.exports = {
       if (isNaN(userId)) {
         return res.status(400).json({
           status: false,
-          message: "The parameter userId is not a number!",
+          message: "Parameter userId yang anda masukkan bukan angka!",
           data: null
         });
       }
@@ -41,7 +41,7 @@ module.exports = {
       if (rekomendasiWisataExists.length > 0) {
         return res.status(400).json({
           status: false,
-          message: "User has already voted for this wisata",
+          message: "User telah merekomendasikan wisata ini",
           data: null
         });
       }
@@ -64,7 +64,7 @@ module.exports = {
 
       res.status(201).json({
         status: true,
-        message: "Rekomendasi Wisata Berhasil Dibuat!",
+        message: "Data rekomendasi wisata berhasil dibuat!",
         data: newRekomendasiWisata
       });
     } catch (err) {
@@ -118,7 +118,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Update Rekomendasi wisata successfuly!',
+        message: 'Data rekomendasi wisata berhasil diperbarui!',
         data: updateOperation
       });
     } catch (err) {
@@ -141,7 +141,7 @@ module.exports = {
         return res.status(404).json({
           status: false,
           message: 'Not Found',
-          data: 'No Rekomendasi wisata Found With Id ' + id
+          data: 'Data rekomendasi tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -153,8 +153,85 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete Rekomendasi wisata successfully!',
+        message: 'Data rekomendasi wisata berhasil dihapus!',
         data: deleteOperation
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  // search rekomendasi
+  searchRekomendasiWisata: async (req, res, next) => {
+    try {
+      const { keyword } = req.query;
+
+      if (!keyword) {
+        return res.status(400).json({ message: 'Harap berikan kata kunci pencarian.' });
+      }
+
+      const results = await prisma.wisata.findMany({
+        where: {
+          OR: [
+            {
+              nama_wisata: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              alamat: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              deskripsi: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            },
+            {
+              kategori: {
+                nama_kategori: {
+                  contains: keyword,
+                  mode: 'insensitive'
+                }
+              }
+            },
+            {
+              daerah: {
+                nama_daerah: {
+                  contains: keyword,
+                  mode: 'insensitive'
+                }
+              }
+            }
+          ]
+        },
+        include: {
+          kategori: true,
+          daerah: true,
+          rekomendasi: { select: { id: true } },
+          ulasan: { select: { id: true } },
+        },
+        orderBy: [
+          { rekomendasi: { _count: 'desc' } }
+        ]
+      });
+
+      if (results.length === 0) {
+        return res.status(404).json({
+          status: false,
+          message: 'Data pencarian tidak ditemukan.',
+          data: results,
+        });
+      }
+
+      res.status(200).json({
+        status: true,
+        message: 'Data hasil pencarian rekomendasi wisata',
+        data: results,
       });
     } catch (err) {
       next(err);

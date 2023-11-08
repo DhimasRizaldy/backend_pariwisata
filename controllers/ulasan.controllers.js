@@ -39,7 +39,7 @@ module.exports = {
 
       res.status(201).json({
         status: true,
-        message: "Create ulasan successfuly!",
+        message: "Data ulasan berhasil dibuat!",
         data: newUlasan
       })
 
@@ -67,7 +67,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: "Bad Request",
-          err: 'ulasan not found!',
+          err: 'Data ulasan tidak ditemukan!',
           data: null
         });
       }
@@ -99,7 +99,7 @@ module.exports = {
 
       return res.status(200).json({
         status: true,
-        message: 'Ulasan Updated Successfuly!',
+        message: 'Data ulasan berhasil diperbarui!',
         err: null,
         data: { updateUlasan }
       });
@@ -151,7 +151,7 @@ module.exports = {
         return res.status(400).json({
           status: false,
           message: 'Bad Request',
-          data: 'No ulasan Found With Id ' + id
+          data: 'Data ulasan tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -180,7 +180,7 @@ module.exports = {
         return res.status(404).json({
           status: false,
           message: 'Not Found',
-          data: 'No ulasan Found With Id ' + id
+          data: 'Data ulasan tidak ditemukan dengan Id ' + id
         });
       }
 
@@ -192,7 +192,7 @@ module.exports = {
 
       res.status(200).json({
         status: true,
-        message: 'Delete ulasan successfully!',
+        message: 'Data ulasan berhasil dihapus!',
         data: deleteOperation
       });
     } catch (err) {
