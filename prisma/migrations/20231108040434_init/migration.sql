@@ -74,7 +74,8 @@ CREATE TABLE "Ulasan" (
     "wisataId" INTEGER NOT NULL,
     "tanggal_ulasan" TIMESTAMP(3) NOT NULL,
     "judul" TEXT NOT NULL,
-    "foto_ulasan" TEXT,
+    "isi_ulasan" TEXT NOT NULL,
+    "foto_ulasan" TEXT NOT NULL,
 
     CONSTRAINT "Ulasan_pkey" PRIMARY KEY ("id")
 );
@@ -87,9 +88,6 @@ CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Rekomendasi_userId_key" ON "Rekomendasi"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Rekomendasi_wisataId_key" ON "Rekomendasi"("wisataId");
 
 -- AddForeignKey
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
