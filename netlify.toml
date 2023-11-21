@@ -1,3 +1,21 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
+command = "npm run build" 
+publish = "dist" # Gantilah dengan direktori output build Anda
+
+[[plugins]]
+package = "@netlify/plugin-functions"
+[plugins.inputs]
+node_bundler = "esbuild"
+
+[[redirects]]
+from = "/api/*"
+status = 200
+to = "/.netlify/functions/api/:splat"
+
+[build.environment]
+# Gantilah nilai-nilai ini sesuai dengan koneksi database PostgreSQL Anda
+DATABASE_URL = "postgres://postgres:dimas020102@localhost:5432/db_pariwasata"
+
+# Menambahkan environment variables lainnya jika diperlukan
+# [build.environment]
+#   KEY_NAME = "key_value"
