@@ -129,7 +129,7 @@ module.exports = {
       res.status(201).json({
         status: true,
         message: 'OK',
-        data: { pagination, ulasan }
+        data: { ulasan }
       });
     } catch (err) {
       next(err);

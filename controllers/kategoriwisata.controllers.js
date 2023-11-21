@@ -43,7 +43,7 @@ module.exports = {
       res.status(201).json({
         status: true,
         message: 'OK',
-        data: { pagination, kategoriWisata }
+        data: { kategoriWisata }
       });
     } catch (err) {
       next(err);

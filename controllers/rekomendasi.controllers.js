@@ -92,7 +92,7 @@ module.exports = {
       res.status(201).json({
         status: true,
         message: 'OK',
-        data: { pagination, RekomendasiWisata }
+        data: { RekomendasiWisata }
       });
     } catch (err) {
       next(err);

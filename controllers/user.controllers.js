@@ -70,7 +70,9 @@ module.exports = {
     try {
       let { email, password } = req.body;
 
-      let user = await prisma.user.findUnique({ where: { email } });
+      let user = await prisma.user.findUnique({
+        where: { email }
+      });
       if (!user) {
         return res.status(400).json({
           status: false,
@@ -110,7 +112,10 @@ module.exports = {
       status: true,
       message: 'OK',
       err: null,
-      data: { user: req.user }
+      data: {
+        user: req.user,
+        profile: req.profile
+      }
     });
   },
 
@@ -172,9 +177,6 @@ module.exports = {
       page = Number(page);
 
       let user = await prisma.user.findMany({
-        include: {
-          profile: true,
-        },
         skip: (page - 1) * limit,
         take: limit,
       });
@@ -187,7 +189,7 @@ module.exports = {
       res.status(201).json({
         status: true,
         message: 'OK',
-        data: { pagination, user }
+        data: { user }
       });
 
     } catch (err) {

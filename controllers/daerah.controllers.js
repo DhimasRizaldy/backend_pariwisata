@@ -43,7 +43,7 @@ module.exports = {
       res.status(201).json({
         status: true,
         message: 'OK',
-        data: { pagination, daerah }
+        data: { daerah }
       });
     } catch (err) {
       next(err);
