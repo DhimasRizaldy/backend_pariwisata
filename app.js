@@ -40,4 +40,5 @@ app.get('/', (req, res) => {
 // });
 
 // running port 3000
-app.listen(PORT, () => console.log(`Server Listen ${PORT}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening to port ${port}`));
