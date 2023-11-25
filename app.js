@@ -21,23 +21,23 @@ app.get('/', (req, res) => {
   });
 });
 
-// // error handling 404
-// app.use((req, res, next) => {
-//   res.status(404).json({
-//     status: false,
-//     message: 'Not Found',
-//     data: null
-//   });
-// });
+// error handling 404
+app.use((req, res, next) => {
+  res.status(404).json({
+    status: false,
+    message: 'Not Found',
+    data: null
+  });
+});
 
-// // error handling 500
-// app.use((err, req, res, next) => {
-//   res.status(500).json({
-//     status: false,
-//     message: 'Internal Server Error',
-//     data: err
-//   });
-// });
+// error handling 500
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    status: false,
+    message: 'Internal Server Error',
+    data: err
+  });
+});
 
 // running port 3000
 const port = process.env.PORT || 3000;
