@@ -1,7 +1,8 @@
 // const { PrismaClient } = require('@prisma/client');
 // const prisma = new PrismaClient();
-const { PrismaClient } = require('./prisma/generated/client');
+import { PrismaClient } from './prisma/generated/client'
 const prisma = new PrismaClient()
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET_KEY } = process.env;

@@ -1,8 +1,11 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
-const prisma = new PrismaClient();
+
+import { PrismaClient } from './prisma/generated/client'
+const prisma = new PrismaClient()
+
+
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL, JWT_SECRET_KEY } = process.env;
 
