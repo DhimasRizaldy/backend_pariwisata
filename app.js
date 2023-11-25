@@ -5,11 +5,6 @@ const morgan = require('morgan');
 const { PORT } = process.env;
 const v1router = require('./routes/v1.routes');
 
-const { PrismaClient } = require('../prisma/generated/client');
-const prisma = new PrismaClient();
-
-
-
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
