@@ -6,7 +6,6 @@
   "engines": {
     "node": "16.20.2"
   },
-  "type": "module",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
