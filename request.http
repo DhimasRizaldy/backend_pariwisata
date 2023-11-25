@@ -3,9 +3,9 @@ POST http://localhost:3000/api/v1/auth/register/
 Content-Type: application/json
 
 {
-  "email": "usertest02@gmail.com",
-  "password": "user02",
-  "password_confirmation": "user02"
+  "email": "usertest01@gmail.com",
+  "password": "user01",
+  "password_confirmation": "user01"
 }
 
 ### create user (admin)
@@ -13,8 +13,8 @@ POST http://localhost:3000/api/v1/user/
 Content-Type: application/json
 
 {
-  "email": "user01@gmail.com",
-  "password": "user01"
+  "email": "admin01@gmail.com",
+  "password": "admin01"
 }
 
 #### login user
@@ -22,8 +22,8 @@ POST http://localhost:3000/api/v1/auth/login/
 Content-Type: application/json
 
 {
-  "email": "usertest02@gmail.com",
-  "password": "user02"
+  "email": "usertest01@gmail.com",
+  "password": "user01"
 }
 
 #### whoami user
