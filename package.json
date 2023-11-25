@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "deploy": "npx prisma migrate deploy"
+    "deploy": "npx prisma migrate deploy",
+    "db": "npx prisma generate"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
