@@ -41,7 +41,7 @@ const { createUlasan, updateUlasan, getAllUlasan, getDetailUlasan, deleteUlasan 
 router.get("/", (req, res) => {
   res.status(200).json({
     status: true,
-    message: " Welcome to learn Restful APIs - Challange Chapter 4",
+    message: " Welcome to learn Restful APIs - Api Backend Pariwisata",
     data: null,
   });
 });

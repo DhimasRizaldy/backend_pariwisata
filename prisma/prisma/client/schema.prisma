@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma/client"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // uses connection pooling
+}
+
+// create table user
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String?
+  googleid    String?
+  role        Role
+  profile     Profile?
+  wisata      Wisata[]
+  rekomendasi Rekomendasi[]
+  ulasan      Ulasan[]
+}
+
+enum Role {
+  admin
+  user
+}
+
+// create table profile
+model Profile {
+  id            Int     @id @default(autoincrement())
+  userId        Int     @unique
+  nama          String?
+  jenis_kelamin String?
+  alamat        String?
+  foto_profile  String?
+  user          User    @relation(fields: [userId], references: [id])
+}
+
+// create table wisata
+model Wisata {
+  id          Int            @id @default(autoincrement())
+  nama_wisata String
+  kategoriId  Int
+  daerahId    Int
+  alamat      String
+  deskripsi   String
+  jam_operasi String
+  harga_tiket String
+  tanggal     DateTime
+  userId      Int
+  foto_wisata String?
+  rekomendasi Rekomendasi[]
+  ulasan      Ulasan[]
+  user        User           @relation(fields: [userId], references: [id])
+  kategori    KategoriWisata @relation(fields: [kategoriId], references: [id])
+  daerah      Daerah         @relation(fields: [daerahId], references: [id])
+}
+
+// create table kategoriwisata
+model KategoriWisata {
+  id            Int      @id @default(autoincrement())
+  nama_kategori String
+  Wisata        Wisata[]
+}
+
+// create table daerah
+model Daerah {
+  id          Int      @id @default(autoincrement())
+  nama_daerah String
+  Wisata      Wisata[]
+}
+
+// create rekomendasi
+model Rekomendasi {
+  id           Int      @id @default(autoincrement())
+  tanggal_vote DateTime
+  userId       Int      @unique
+  wisataId     Int
+  user         User     @relation(fields: [userId], references: [id])
+  wisata       Wisata   @relation(fields: [wisataId], references: [id])
+}
+
+// create ulasan 
+model Ulasan {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  wisataId       Int
+  tanggal_ulasan DateTime
+  judul          String
+  isi_ulasan     String
+  foto_ulasan    String
+  user           User     @relation(fields: [userId], references: [id])
+  wisata         Wisata   @relation(fields: [wisataId], references: [id])
+}
