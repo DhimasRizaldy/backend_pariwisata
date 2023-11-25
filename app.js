@@ -5,8 +5,8 @@ const morgan = require('morgan');
 const { PORT } = process.env;
 const v1router = require('./routes/v1.routes');
 
-import { PrismaClient } from './prisma/generated/client'
-const prisma = new PrismaClient()
+const { PrismaClient } = require('../prisma/generated/client');
+const prisma = new PrismaClient();
 
 
 
