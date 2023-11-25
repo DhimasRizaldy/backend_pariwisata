@@ -4,7 +4,6 @@ const app = express();
 const morgan = require('morgan');
 const { PORT } = process.env;
 const v1router = require('./routes/v1.routes');
-const vercel = require('@vercel/node');
 
 
 // middlewares
