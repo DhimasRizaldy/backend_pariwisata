@@ -9,7 +9,12 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "prisma generate && next build"
+    "build": "prisma generate && next build",
+    "generate": "npx prisma generate",
+    "deploy": "npx prisma migrate deploy"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   },
   "author": "",
   "license": "ISC",
