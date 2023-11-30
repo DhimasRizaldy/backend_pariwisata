@@ -1,29 +1,43 @@
 openapi: 3.0.0
 info:
-  title: Docs API Backend Coursehub
-  description: Documentasi API untuk autentikasi pengguna (berbasis Token)
+  title: Docs API Backend Pariwisata
+  description: |-
+    Backend sistem pariwisata Lampung adalah bagian dari infrastruktur teknologi yang mendukung aplikasi atau situs web pariwisata di Lampung. Sistem ini bertanggung jawab untuk mengelola dan menyediakan data terkait destinasi pariwisata, acara, fasilitas, dan informasi lainnya kepada pengguna. API (Antarmuka Pemrograman Aplikasi) backend pariwisata Lampung memberikan akses kepada pengembang untuk mengambil dan menyinkronkan informasi terkini terkait pariwisata secara otomatis.
+    
+    API backend ini mungkin mencakup endpoint atau titik akses yang memungkinkan penggunaan data seperti deskripsi tempat wisata, lokasi geografis, fasilitas yang tersedia, ulasan pengguna, dan informasi terkait lainnya. Penggunaannya dapat melibatkan operasi seperti pencarian, pemfilteran, dan pengambilan data untuk disajikan di aplikasi atau situs web pariwisata.
+    
+    Melalui API backend pariwisata Lampung, pengembang dapat mengintegrasikan informasi pariwisata dengan aplikasi pihak ketiga atau membuat aplikasi khusus yang menampilkan dan memanfaatkan data pariwisata secara efektif. Hal ini membantu dalam mempromosikan destinasi pariwisata Lampung dan memberikan pengalaman yang lebih baik bagi para wisatawan.
+    
   version: 1.0.0
   contact:
-    name: CourseHub
-    email: CourseHubreal@gmail.com
+    name: Backend Pariwisata
+    email: dtekchannel02@gmail.com
 servers:
   - url: http://localhost:3000/api/v1
-  - url: https://backend_coursehub.test/api/v1
-  - url: https://coursehub-development.vercel.app/api/v1
-  - url: https://coursehub-backend.vercel.app/api/v1
+  - url: https://backend-pariwisata.onrender.com/api/v1
 tags:
-  - name: Users
-    description: Operations related to auth Users
-  - name: Admin
-    description: Operations related to auth Admin
+  - name: User
+    description: Operations related to auth User
+  - name: Profile
+    description: Operations related to Profile
+  - name: Kategori Wisata
+    description: Operations related to Kategori Wisata
+  - name: Daerah Wisata
+    description: Operations related to Daerah Wisata
+  - name: Wisata
+    description: Operations related to Kategori Wisata
+  - name: Ulasan
+    description: Operations related to Ulasan
+  - name: Rekomendasi By User
+    description: Operations related to Rekomendasi By User
 paths:
   /auth/register:
     post:
       tags: 
-      - Users
+      - User
       operationId: post-create-register
       summary: Register new users
-      description: Successful account registration, check the account activation otp code in your email
+      description: Register User Account
       requestBody:
             $ref: '#/components/requestBodies/createRegister'
       responses: 
@@ -39,38 +53,16 @@ paths:
                       data:
                         $ref: '#/components/schemas/RegisterModel'
                         
-  /auth/verifyOTP:
-    post:
-      tags:
-      - Users
-      operationId: post-verify-otp
-      summary: Verify OTP (OTP Aktivasi)
-      description: Verify otp after account registration
-      requestBody:
-            $ref: '#/components/requestBodies/createOtp'
-      responses: 
-        "201":
-          description: Account activated successfully!.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/BasicResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/VerifyOtpModel'
-                        
                         
   /auth/login:
     post:
       tags: 
-      - Users
-      operationId: post-login-users
+      - User
+      operationId: post-login-user
       summary: Login Users
       description: Users account login
       requestBody:
-            $ref: '#/components/requestBodies/createLoginUsers'
+            $ref: '#/components/requestBodies/createLoginUser'
       responses: 
         "201":
           description: Login success!.
@@ -83,12 +75,12 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/LoginUserModel'
-                        
-                        
+  
+
   /auth/whoami:
     get:
       tags:
-        - Users
+        - User
       operationId: get-fetch-whoami
       summary: Get Whoami
       description: Retrieves details of a specific users.
@@ -101,97 +93,12 @@ paths:
                 allOf:
                   - $ref: "#/components/schemas/BasicResponse"
                   - type: object
-                    properties:
-                      data:
-                        $ref: "#/components/schemas/WhoamiModel"
-                        
+
       security:
       - bearerAuth: []
                         
                         
-                        
-  /auth/admin/register:
-    post:
-      tags: 
-      - Admin
-      operationId: post-create-admin
-      summary: Register new Admin
-      description: Register new admin
-      requestBody:
-            $ref: '#/components/requestBodies/createAdmin'
-      responses: 
-        "201":
-          description: Succesfull Create Admin!.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/BasicResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/AdminModel'
-                        
-                        
-  /auth/admin/login:
-    post:
-      tags: 
-      - Admin
-      operationId: post-login-admin
-      summary: Login Admin
-      description: Admin account login
-      requestBody:
-            $ref: '#/components/requestBodies/createLoginAdmin'
-      responses: 
-        "201":
-          description: Login success!.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/BasicResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/LoginAdminModel'
-                        
-  /auth/admin/whoami:
-    get:
-      tags:
-        - Admin
-      operationId: get-fetch-whoami-admin
-      summary: Get Whoami Admin
-      description: Retrieves details of a specific admin.
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: "#/components/schemas/BasicResponse"
-                  - type: object
-                    properties:
-                      data:
-                        $ref: "#/components/schemas/WhoamiModel"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: "#/components/schemas/BasicResponse"
-                  - type: object
-                    properties:
-                      data:
-                        type: string
-                        example: Unauthorized                
-      security:
-      - bearerAuth: []    
-        
-
-
-
+                      
 
 
 
@@ -220,107 +127,48 @@ components:
       title: Register
       type: object
       properties:
-        nickname:
-          type: string
-          example: "test01"
         email:
           type: string
-          example: "test_dev@gmail.com"
-        phone_number:
-          type: string
-          example: 0898829918291
+          example: "usertest01@gmail.com"
         password:
           type: string
-          example: "test123"
-          
-    VerifyOtpModel:
-      title: verifyOTP
-      type: object
-      properties:
-        null:
-          type: string
-          example: 
-     
-   
-    LoginUserModel:
-      title: Login Users
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        nickname:
-          type: string
-          example: "usertest02"
-        email:
-          type: string
-          example: "usertest03@gmail.com"
-        otp:
+          example: "*******"
+        googleId:
           type: string
           example: "null"
-        isVerified:
+        role:
           type: string
-          example: "true"
+          example: "user"
           
-    WhoamiModel:
-      title: Whoami Users & Admin
+    LoginUserModel:
+      title: Login
       type: object
       properties:
-        id:
-          type: integer
-          example: 1
-        nickname:
-          type: string
-          example: "usertest02"
         email:
           type: string
-          example: "usertest03@gmail.com"
-        iat:
-          type: integer
-          example: 1700840557
-        exp:
-          type: integer
-          example: 1700926957
-          
-    LoginAdminModel:
-      title: Login Admin
-      type: object
-      properties:
-        data:
+          example: "usertest01@gmail.com"
+        password:
           type: string
-          example: "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWRBZG1pbiI6ImFkbWluLWNvdXJzZS1odWJAZ21haWwuY29tIiwiaWF0IjoxNzAwODQxNjUyLCJleHAiOjE3MDA5MjgwNTJ9.Xj7FsT6aPtXTZISozyYp8oKABQ8eyLSh0JJBeD2g"
+          example: "******"
           
     
-    UsersModel:
-      title: Users
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        nickname:
-          type: string
-          example: "test"
-        email:
-          type: string
-          example: "test_dev@gmail.com"
-        password:
-          type: string
-          example: "test_dev020102"
           
-    AdminModel:
-      title: Admin
+    Pagination:
+      title: Pagination
       type: object
       properties:
-        id:
+        links:
+          type: object
+          properties:
+            next:
+              type: string
+              example: "https://domain.com/users?page=3&limit=10"
+            prev:
+              type: string
+              example: "https://domain.com/users?page=1&limit=10"
+        total_items:
           type: integer
-          example: 1
-        idAdmin:
-          type: string
-          example: "admin-course-hub"
-        password:
-          type: string
-          example: "admin123"
+          example: 100
           
           
   requestBodies:
@@ -330,20 +178,17 @@ components:
             schema:
               type: object
               properties:
-                nickname:
-                  type: string
-                  example: "usertest01"
                 email:
                   type: string
                   example: "usertest01@gmail.com"
-                phone_number:
-                  type: string
-                  example: "089627188292"
                 password:
                   type: string
-                  example: "usertest123"
+                  example: "******"
+                password_confirmation:
+                  type: string
+                  example: "******"
                   
-      createOtp:
+      createLoginUser:
         content:
           application/json:
             schema:
@@ -352,48 +197,11 @@ components:
                 email:
                   type: string
                   example: "usertest01@gmail.com"
-                otp:
+                password:
                   type: string
-                  example: "jpK9oX"
+                  example: "******"
 
+                
                   
-      createLoginUsers:
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  email:
-                    type: string
-                    example: "usertest01@gmail.com"
-                  password:
-                    type: string
-                    example: "usertest123"
-                    
-      createLoginAdmin:
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  idAdmin:
-                    type: string
-                    example: "admin-course-hub"
-                  password:
-                    type: string
-                    example: "admin123"
-                    
-                    
-      createAdmin:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                idAdmin:
-                  type: string
-                  example: "admin-course-hub"
-                password:
-                  type: string
-                  example: "admin123"
-  
+     
+                           

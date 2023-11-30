@@ -3,9 +3,9 @@ POST https://backend-pariwisata.onrender.com/api/v1/auth/register/
 Content-Type: application/json
 
 {
-  "email": "usertest01@gmail.com",
-  "password": "user01",
-  "password_confirmation": "user01"
+  "email": "usertest03@gmail.com",
+  "password": "user02",
+  "password_confirmation": "user02"
 }
 
 ### create user (admin)
@@ -29,7 +29,7 @@ Content-Type: application/json
 #### whoami user
 
 GET https://backend-pariwisata.onrender.com/api/v1/auth/whoami/
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAwOTMzMzA0fQ.AHYE_swn2Fgvoigcx9i-ZcSwDZ9CHjFpgMtdLGI-chI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTcwMTMzNDcyMX0.3YtbSnbLCOfVv5TtCImtXBQy7yDrhccsFIiHHKgApv4
 
 
 #### update user
