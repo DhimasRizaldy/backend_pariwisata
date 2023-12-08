@@ -22,8 +22,8 @@ POST https://backend-pariwisata.onrender.com/api/v1/auth/login/
 Content-Type: application/json
 
 {
-  "email": "usertest01@gmail.com",
-  "password": "user01"
+  "email": "admin01@gmail.com",
+  "password": "admin01"
 }
 
 #### whoami user
@@ -42,6 +42,18 @@ Content-Type: application/json
 }
 
 
+#### get data daerah
+GET https://backend-pariwisata.onrender.com/api/v1/daerah/
+Content-Type: application/json
+
+#### Post data daerah
+POST https://backend-pariwisata.onrender.com/api/v1/daerah/
+Content-Type: application/json
+
+{
+  "nama_daerah": "Metro"
+}
+
 #### update daerah
 PUT http://localhost:3000/api/v1/daerah/1
 Content-Type: application/json
@@ -50,9 +62,21 @@ Content-Type: application/json
   "nama_daerah": "Solo"
 }
 
+#### update kategori wisata
+POST https://backend-pariwisata.onrender.com/api/v1/kategoriWisata/
+Content-Type: application/json
+
+{
+  "nama_kategori": "Wisata Taman Nasional"
+}
+
+###
+GET https://backend-pariwisata.onrender.com/api/v1/kategoriWisata
+Content-Type: application/json
+
 
 #### update kategori wisata
-PUT http://localhost:3000/api/v1/kategoriWisata/4
+PUT https://backend-pariwisata.onrender.com/api/v1/kategoriWisata/5
 Content-Type: application/json
 
 {
@@ -124,3 +148,9 @@ Content-Type: application/json
 
 ####
 GET http://localhost:3000/api/v1/wisata/search/?pantai
+
+
+
+###
+GET https://backend-pariwisata.onrender.com/api/v1/kategori_wisata/6
+Content-Type: application/json

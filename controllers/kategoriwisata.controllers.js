@@ -18,7 +18,7 @@ module.exports = {
       });
       res.status(201).json({
         status: true,
-        message: "Data daerah sukses dibuat!",
+        message: "Data kategori wisata sukses dibuat!",
         data: newkategoriWisata
       })
     } catch (err) {
@@ -43,7 +43,7 @@ module.exports = {
 
       let pagination = getPagination(req, _count.id, page, limit);
 
-      res.status(201).json({
+      res.status(200).json({
         status: true,
         message: 'OK',
         data: { kategoriWisata }

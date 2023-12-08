@@ -43,7 +43,7 @@ module.exports = {
 
       let pagination = getPagination(req, _count.id, page, limit);
 
-      res.status(201).json({
+      res.status(200).json({
         status: true,
         message: 'OK',
         data: { daerah }

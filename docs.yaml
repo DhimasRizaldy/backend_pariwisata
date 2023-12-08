@@ -96,7 +96,470 @@ paths:
 
       security:
       - bearerAuth: []
+      
+      
+      
+  '/profile/{id}':
+    put:
+      tags:
+        - Profile
+      operationId: get-update-profile
+      summary: Get Update Profile
+      description: Retrieves a list of detail profile users.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the kategori wisata to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createProfile'
+      responses:
+        '200':
+          description: Promo retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/KategoriWisataModel'
                         
+                        
+                        
+  
+  /kategoriWisata:
+    post:
+      tags:
+        - Kategori Wisata
+      operationId: post-kategoriWisata
+      summary: Create New Kategori Wisata
+      description: Create Data Kategori Wisata
+      requestBody:
+        $ref: '#/components/requestBodies/createKategoriWisata'
+      responses:
+        '201':
+          description: Data kategori wisata sukses dibuat!.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/KategoriWisataModel'
+                        
+
+    get:
+      tags:
+        - Kategori Wisata
+      operationId: get-fetch-all-kategoriWisata
+      summary: Get all Kategori Wisata
+      description: Retrieves a list of all registered Kategori Wisata.
+      responses:
+        '200':
+          description: Kategori Wisata retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          kategoriWisata:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/KategoriWisataModel'
+                            
+
+  '/kategoriWisata/{id}':
+    put:
+      tags:
+        - Kategori Wisata
+      operationId: get-update-kategoriWisata
+      summary: Get Update Kategori Wisata
+      description: Retrieves a list of detail kategori wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the kategori wisata to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createKategoriWisata'
+      responses:
+        '200':
+          description: Promo retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/KategoriWisataModel'
+                        
+                        
+    delete:
+      tags:
+        - Kategori Wisata
+      operationId: delete-remove-kategoriWisata
+      summary: Delete Kategori Wisata
+      description: Deletes a specific Kategori Wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the promo to delete.
+      responses:
+        '200':
+          description: Successful promo deletion
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: null
+                        
+                        
+                        
+  /daerah:
+    post:
+      tags:
+        - Daerah Wisata
+      operationId: post-daerahWisata
+      summary: Create New Daerah Wisata
+      description: Create Data Daerah Wisata
+      requestBody:
+        $ref: '#/components/requestBodies/createKategoriWisata'
+      responses:
+        '201':
+          description: Data Daerah wisata sukses dibuat!.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/DaerahWisataModel'
+                        
+
+    get:
+      tags:
+        - Daerah Wisata
+      operationId: get-fetch-all-daerahWisata
+      summary: Get all Daerah Wisata
+      description: Retrieves a list of all registered Daerah Wisata.
+      responses:
+        '200':
+          description: Daerah Wisata retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          daerahWisata:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/DaerahWisataModel'
+                            
+
+  '/daerah/{id}':
+    put:
+      tags:
+        - Daerah Wisata
+      operationId: get-update-daerahWisata
+      summary: Get Update Daerah Wisata
+      description: Retrieves a list of detail daerah wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the daerah wisata to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createDaerahWisata'
+      responses:
+        '200':
+          description: Data daerah sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/DaerahWisataModel'
+                        
+                        
+    delete:
+      tags:
+        - Daerah Wisata
+      operationId: delete-remove-daerahWisata
+      summary: Delete Daerah Wisata
+      description: Deletes a specific Daerah Wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the daerah wisata to delete.
+      responses:
+        '200':
+          description: Data daerah sukses dihapus!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: null
+                        
+                        
+  /wisata:
+    post:
+      tags:
+        - Wisata
+      operationId: post-wisata
+      summary: Create New Wisata
+      description: Create Data Wisata
+      requestBody:
+        $ref: '#/components/requestBodies/createWisata'
+      responses:
+        '201':
+          description: Data wisata sukses dibuat!.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/WisataModel'
+                        
+
+    get:
+      tags:
+        - Wisata
+      operationId: get-fetch-all-Wisata
+      summary: Get all Wisata
+      description: Retrieves a list of all registered Wisata.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Page number for pagination.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: Number of items per page.
+      responses:
+        '200':
+          description: Wisata retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          daerahWisata:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/WisataModel'
+                            
+
+  '/wisata/{id}':
+    get:
+      tags:
+        - Wisata
+      operationId: get-detail-Wisata
+      summary: Get Detail Wisata
+      description: Retrieves a list of detail wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the wisata to retrieve.
+      responses:
+        '200':
+          description: Data daerah sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+
+                        
+                        
+    put:
+      tags:
+        - Wisata
+      operationId: get-update-Wisata
+      summary: Get Update Wisata
+      description: Retrieves a list of detail wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the daerah wisata to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createWisata'
+      responses:
+        '200':
+          description: Data daerah sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/WisataModel'
+                        
+                        
+    delete:
+      tags:
+        - Wisata
+      operationId: delete-remove-Wisata
+      summary: Delete Wisata
+      description: Deletes a specific Wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the wisata to delete.
+      responses:
+        '200':
+          description: Data wisata sukses dihapus!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: null
+                        
+  '/search_wisata':
+    get:
+      tags:
+        - Wisata
+      operationId: get-search-Wisata
+      summary: Get Search Wisata
+      description: Retrieves a list of search wisata.
+      parameters:
+        - in: query
+          name: nama_wisata
+          schema:
+            type: string
+          required: false
+          description: Search Nama Wisata.
+        - in: query
+          name: alamat
+          schema:
+            type: string
+          required: false
+          description: Search Alamat Wisata.
+        - in: query
+          name: deskripsi
+          schema:
+            type: string
+          required: false
+          description: Search Deskripsi Wisata.
+        - in: query
+          name: kategori
+          schema:
+            type: string
+          required: false
+          description: Search Kategori Wisata.
+        - in: query
+          name: daerah
+          schema:
+            type: string
+          required: false
+          description: Search Daerah Wisata.
+      responses:
+        '200':
+          description: Data daerah sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                  
+                  
+  '/kategori_wisata/:{id}':
+    get:
+      tags:
+        - Wisata
+      operationId: get-kategori-Wisata
+      summary: Get List Wisata By Kategori wisata.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the wisata to retrieve.
+      responses:
+        '200':
+          description: Data daerah sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+
+
                         
                       
 
@@ -105,7 +568,7 @@ paths:
 
 components:
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    bearerAuth:           
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -150,6 +613,58 @@ components:
         password:
           type: string
           example: "******"
+          
+    KategoriWisataModel:
+      title: Kategori Wisata
+      type: object
+      properties:
+        nama_kategori:
+          type: string
+          example: 'Wisata Pantai'
+          
+    DaerahWisataModel:
+      title: Daerah Wisata
+      type: object
+      properties:
+        nama_kategori:
+          type: string
+          example: 'Bandar Lampung'
+          
+    WisataModel:
+      title: Wisata
+      type: object
+      properties:
+        nama_wisata:
+          type: string
+          example: 'Pantai Klara'
+        kategoriId:
+          type: integer
+          example: 1
+        daerahId:
+          type: integer
+          example: 1
+        alamat:
+          type: string
+          example: 'Alamat Wisata'
+        deskripsi:
+          type: string
+          example: 'Dekskripsi Wisata'
+        jam_operasi:
+          type: string
+          example: 'Jam Buka Wisata'
+        harga_tiket:
+          type: string
+          example: 'Harga Tiket'
+        tanggal:
+          type: string
+          example: "2023-12-08"
+        userId:
+          type: integer
+          example: 1
+        foto_wisata:
+          type: string
+          example: "File Foto Wisata"
+        
           
     
           
@@ -200,7 +715,86 @@ components:
                 password:
                   type: string
                   example: "******"
+                  
+      createKategoriWisata:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_kategori:
+                  type: string
+                  example: 'Wisata Pantai'
+                  
+      createDaerahWisata:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_daerah:
+                  type: string
+                  example: 'Bandar Lampung'
+                  
+      createWisata:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_wisata:
+                  type: string
+                  example: 'Pantai Klara'
+                kategoriId:
+                  type: integer
+                  example: 1
+                daerahId:
+                  type: integer
+                  example: 1
+                alamat:
+                  type: string
+                  example: 'Alamat Wisata'
+                deskripsi:
+                  type: string
+                  example: 'Dekskripsi Wisata'
+                jam_operasi:
+                  type: string
+                  example: 'Jam Buka Wisata'
+                harga_tiket:
+                  type: string
+                  example: 'Harga Tiket'
+                tanggal:
+                  type: string
+                  example: "2023-12-08"
+                userId:
+                  type: integer
+                  example: 1
+                foto_wisata:
+                  type: string
+                  example: "File Foto Wisata"
 
+
+      createProfile:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 2
+                nama:
+                  type: string
+                  example: 'User Test'
+                jenis_kelamin:
+                  type: string
+                  example: 'Pria/Wanita'
+                alamat:
+                  type: string
+                  example: 'Alamat Lengkap'
+                foto_profile:
+                  type: string
+                  example: 'Upload Foto Profile'
                 
                   
      
