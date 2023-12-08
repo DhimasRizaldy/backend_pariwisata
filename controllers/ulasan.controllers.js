@@ -12,7 +12,7 @@ module.exports = {
   createUlasan: async (req, res, next) => {
     try {
       let userId = parseInt(req.body.userId, 10);
-      let ulasanId = parseInt(req.body.ulasanId, 10);
+      let wisataId = parseInt(req.body.wisataId, 10);
       let { judul, isi_ulasan } = req.body;
       let tanggal_ulasan = new Date().toISOString();
 
@@ -32,7 +32,7 @@ module.exports = {
       let newUlasan = await prisma.ulasan.create({
         data: {
           user: { connect: { id: userId } },
-          ulasan: { connect: { id: ulasanId } },
+          wisata: { connect: { id: wisataId } },
           tanggal_ulasan,
           judul,
           isi_ulasan,
@@ -56,7 +56,7 @@ module.exports = {
     try {
       let { id } = req.params;
       let userId = parseInt(req.body.userId, 10);
-      let ulasanId = parseInt(req.body.ulasanId, 10);
+      let wisataId = parseInt(req.body.wisataId, 10);
       let { judul, isi_ulasan } = req.body;
       let tanggal_ulasan = new Date().toISOString();
 
@@ -92,7 +92,7 @@ module.exports = {
         where: { id: Number(id) },
         data: {
           user: { connect: { id: userId } },
-          ulasan: { connect: { id: ulasanId } },
+          wisata: { connect: { id: wisataId } },
           tanggal_ulasan,
           judul,
           isi_ulasan,
@@ -146,7 +146,7 @@ module.exports = {
       let ulasan = await prisma.ulasan.findUnique({
         where: { id: Number(id) },
         include: {
-          ulasan: true
+          wisata: true
         }
       });
 

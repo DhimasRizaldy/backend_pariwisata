@@ -558,7 +558,242 @@ paths:
                 allOf:
                   - $ref: '#/components/schemas/BasicResponse'
                   - type: object
+                  
 
+  /ulasan:
+    post:
+      tags:
+        - Ulasan
+      operationId: post-ulasan
+      summary: Create New Ulasan
+      description: Create Data Ulasan
+      requestBody:
+        $ref: '#/components/requestBodies/createUlasan'
+      responses:
+        '201':
+          description: Data Ulasan sukses dibuat!.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UlasanModel'
+                        
+
+    get:
+      tags:
+        - Ulasan
+      operationId: get-fetch-all-ulasan
+      summary: Get all Ulasan
+      description: Retrieves a list of all registered Ulasan.
+      responses:
+        '200':
+          description: Ulasan retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          daerahWisata:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/UlasanModel'
+                            
+
+  '/ulasan/{id}':
+    get:
+      tags:
+        - Ulasan
+      operationId: get-detail-ulasan
+      summary: Get Detail Ulasan
+      description: Retrieves a list of detail ulasan.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the ulasan to retrieve.
+      responses:
+        '200':
+          description: Data ulasan sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+
+                        
+    put:
+      tags:
+        - Ulasan
+      operationId: get-update-ulasan
+      summary: Get Update Ulasan
+      description: Retrieves a list of detail ulasan.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the ulasan to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createUlasan'
+      responses:
+        '200':
+          description: Data ulasan sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UlasanModel'
+                        
+                        
+    delete:
+      tags:
+        - Ulasan
+      operationId: delete-remove-ulasan
+      summary: Delete Daerah Ulasan
+      description: Deletes a specific Ulasan.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the ulasan to delete.
+      responses:
+        '200':
+          description: Data ulasan sukses dihapus!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: null
+                        
+                        
+  /rekomendasi:
+    post:
+      tags:
+        - Rekomendasi By User
+      operationId: post-rekomendasi
+      summary: Create New Rekomendasi
+      description: Create Data Rekomendasi
+      requestBody:
+        $ref: '#/components/requestBodies/createRekomendasi'
+      responses:
+        '201':
+          description: Data Rekomendasi sukses dibuat!.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RekomendasiModel'
+                        
+
+    get:
+      tags:
+        - Rekomendasi By User
+      operationId: get-fetch-all-rekomendasi
+      summary: Get all Ulasan
+      description: Retrieves a list of all registered Rekomendasi.
+      responses:
+        '200':
+          description: Ulasan retrieved successfully!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          daerahWisata:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/RekomendasiModel'
+                            
+
+  '/rekomendasi/{id}':
+    put:
+      tags:
+        - Rekomendasi By User
+      operationId: get-update-rekomendasi
+      summary: Get Update Ulasan
+      description: Retrieves a list of detail rekomendasi.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the rekomendasi to retrieve.
+      requestBody:
+        $ref: '#/components/requestBodies/createRekomendasi'
+      responses:
+        '200':
+          description: Data rekomendasi sukses diperbarui!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RekomendasiModel'
+                        
+                        
+    delete:
+      tags:
+        - Rekomendasi By User
+      operationId: delete-remove-rekomendasi
+      summary: Delete rekomendasi
+      description: Deletes a specific Rekomendasi.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The ID of the ulasan to delete.
+      responses:
+        '200':
+          description: Data ulasan sukses dihapus!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BasicResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        example: null
 
                         
                       
@@ -664,11 +899,46 @@ components:
         foto_wisata:
           type: string
           example: "File Foto Wisata"
+          
+    UlasanModel:
+      title: Ulasan
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 2
+        wisataId:
+          type: integer
+          example: 2
+        tanggal_ulasan:
+          type: string
+          example: '2023-12-08'
+        judul:
+          type: string
+          example: 'Judul Ulasan'
+        isi_ulasan:
+          type: string
+          example: 'Isi Ulasan'
+        foto_ulasan:
+          type: string
+          example: 'Upload Fotasan'
+          
+    RekomendasiModel:
+      title: Wisata
+      type: object
+      properties:
+        tanggal_vote:
+          type: string
+          example: '2023-12-08'
+        userId:
+          type: integer
+          example: 2
+        wisataId:
+          type: integer
+          example: 2
         
-          
-    
-          
-    Pagination:
+  
+    pagination:
       title: Pagination
       type: object
       properties:
@@ -795,6 +1065,47 @@ components:
                 foto_profile:
                   type: string
                   example: 'Upload Foto Profile'
+                  
+      createUlasan:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 2
+                wisataId:
+                  type: integer
+                  example: 2
+                tanggal_ulasan:
+                  type: string
+                  example: '2023-12-08'
+                judul:
+                  type: string
+                  example: 'Judul Ulasan'
+                isi_ulasan:
+                  type: string
+                  example: 'Isi Ulasan'
+                foto_ulasan:
+                  type: string
+                  example: 'Upload Foto Ulasan'
+                  
+      createRekomendasi:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tanggal_vote:
+                  type: string
+                  example: '2023-12-08'
+                userId:
+                  type: integer
+                  example: 2
+                wisataId:
+                  type: integer
+                  example: 2
                 
                   
      
