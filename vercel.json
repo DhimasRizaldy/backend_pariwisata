@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "coursehub-backend",
+  "name": "backend_pariwisata",
   "builds": [{ "src": "app.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/app.js" }]
 }
