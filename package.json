@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "engines": {
-    "node": "16.20.2"
-  },
+
   "scripts": {
     "migrate": "prisma migrate",
     "generate": "prisma generate --schema=./prisma/schema.prisma",
