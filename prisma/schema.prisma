@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,25 +8,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// create table user
 model User {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
   password    String?
   googleid    String?
   role        Role
   profile     Profile?
-  wisata      Wisata[]
-  rekomendasi Rekomendasi[]
+  rekomendasi Rekomendasi?
   ulasan      Ulasan[]
+  wisata      Wisata[]
 }
 
-enum Role {
-  admin
-  user
-}
-
-// create table profile
 model Profile {
   id            Int     @id @default(autoincrement())
   userId        Int     @unique
@@ -40,7 +30,6 @@ model Profile {
   user          User    @relation(fields: [userId], references: [id])
 }
 
-// create table wisata
 model Wisata {
   id          Int            @id @default(autoincrement())
   nama_wisata String
@@ -55,26 +44,23 @@ model Wisata {
   foto_wisata String?
   rekomendasi Rekomendasi[]
   ulasan      Ulasan[]
-  user        User           @relation(fields: [userId], references: [id])
-  kategori    KategoriWisata @relation(fields: [kategoriId], references: [id])
   daerah      Daerah         @relation(fields: [daerahId], references: [id])
+  kategori    KategoriWisata @relation(fields: [kategoriId], references: [id])
+  user        User           @relation(fields: [userId], references: [id])
 }
 
-// create table kategoriwisata
 model KategoriWisata {
   id            Int      @id @default(autoincrement())
   nama_kategori String
   Wisata        Wisata[]
 }
 
-// create table daerah
 model Daerah {
   id          Int      @id @default(autoincrement())
   nama_daerah String
   Wisata      Wisata[]
 }
 
-// create rekomendasi
 model Rekomendasi {
   id           Int      @id @default(autoincrement())
   tanggal_vote DateTime
@@ -84,7 +70,6 @@ model Rekomendasi {
   wisata       Wisata   @relation(fields: [wisataId], references: [id])
 }
 
-// create ulasan 
 model Ulasan {
   id             Int      @id @default(autoincrement())
   userId         Int
@@ -95,4 +80,9 @@ model Ulasan {
   foto_ulasan    String
   user           User     @relation(fields: [userId], references: [id])
   wisata         Wisata   @relation(fields: [wisataId], references: [id])
+}
+
+enum Role {
+  admin
+  user
 }

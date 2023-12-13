@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-
   "scripts": {
-    "migrate": "prisma migrate",
-    "generate": "prisma generate --schema=./prisma/schema.prisma",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "deploy": "npx prisma migrate deploy"
+    "db-pull": "prisma db pull",
+    "db-migrate": "prisma migrate dev --name init",
+    "postinstall": "prisma generate"
   },
   "author": "",
   "license": "ISC",
