@@ -9,6 +9,7 @@ const yaml = require('yaml');
 const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const path = require('path');
+const { serverError, notFound } = require('./middlewares/errorHandling');
 
 
 app.use(
@@ -36,32 +37,10 @@ app.use(
 
 // router url main
 app.use("/api/v1", v1router);
-app.get('/', (req, res) => {
-  return res.json({
-    status: true,
-    message: "Welcome to Apis - Pariwisata",
-    error: null,
-    data: null,
-  });
-});
-
 // error handling 404
-app.use((req, res, next) => {
-  res.status(404).json({
-    status: false,
-    message: 'Not Found',
-    data: null
-  });
-});
-
+app.use(notFound);
 // error handling 500
-app.use((err, req, res, next) => {
-  res.status(500).json({
-    status: false,
-    message: 'Internal Server Error',
-    data: err
-  });
-});
+app.use(serverError);
 
 // running port 3000
 app.listen(PORT, () => {
