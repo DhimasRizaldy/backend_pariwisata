@@ -14,6 +14,7 @@ info:
     email: dtekchannel02@gmail.com
 servers:
   - url: http://localhost:3000/api/v1
+  - url: https://backend-pariwisata.vercel.app/api/v1
   - url: https://backend-pariwisata.onrender.com/api/v1
 tags:
   - name: User
