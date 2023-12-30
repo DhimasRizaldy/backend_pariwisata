@@ -41,6 +41,7 @@ model Wisata {
   harga_tiket String
   tanggal     DateTime
   userId      Int
+  urlvideo    String
   foto_wisata String?
   rekomendasi Rekomendasi[]
   ulasan      Ulasan[]

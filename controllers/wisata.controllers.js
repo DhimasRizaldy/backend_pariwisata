@@ -11,10 +11,10 @@ module.exports = {
   // create wisata
   createWisata: async (req, res, next) => {
     try {
-      let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket } = req.body;
+      let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket, urlvideo } = req.body;
 
       let kategoriId = parseInt(req.body.kategoriId, 10); // Mengonversi ke integer
-      let daerahId = parseInt(req.body.daerahId, 10);   // Mengonversi ke integer
+      let daerahId = parseInt(req.body.daerahId, 10); // Mengonversi ke integer
       let userId = parseInt(req.body.userId, 10);
 
       let tanggal = new Date().toISOString();
@@ -43,6 +43,7 @@ module.exports = {
           harga_tiket,
           tanggal,
           userId,
+          urlvideo,
           foto_wisata: url,
         },
       });
@@ -118,7 +119,14 @@ module.exports = {
   updateWisata: async (req, res, next) => {
     try {
       let { id } = req.params;
-      let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket } = req.body;
+      let {
+        nama_wisata,
+        alamat,
+        deskripsi,
+        jam_operasi,
+        harga_tiket,
+        urlvideo
+      } = req.body;
 
       let kategoriId = parseInt(req.body.kategoriId, 10);
 
@@ -167,6 +175,7 @@ module.exports = {
           harga_tiket,
           tanggal,
           userId,
+          urlvideo,
           foto_wisata: url
         }
       });
@@ -227,41 +236,40 @@ module.exports = {
 
       const results = await prisma.wisata.findMany({
         where: {
-          OR: [
-            {
-              nama_wisata: {
+          OR: [{
+            nama_wisata: {
+              contains: keyword,
+              mode: 'insensitive'
+            }
+          },
+          {
+            alamat: {
+              contains: keyword,
+              mode: 'insensitive'
+            }
+          },
+          {
+            deskripsi: {
+              contains: keyword,
+              mode: 'insensitive'
+            }
+          },
+          {
+            kategori: {
+              nama_kategori: {
                 contains: keyword,
                 mode: 'insensitive'
-              }
-            },
-            {
-              alamat: {
-                contains: keyword,
-                mode: 'insensitive'
-              }
-            },
-            {
-              deskripsi: {
-                contains: keyword,
-                mode: 'insensitive'
-              }
-            },
-            {
-              kategori: {
-                nama_kategori: {
-                  contains: keyword,
-                  mode: 'insensitive'
-                }
-              }
-            },
-            {
-              daerah: {
-                nama_daerah: {
-                  contains: keyword,
-                  mode: 'insensitive'
-                }
               }
             }
+          },
+          {
+            daerah: {
+              nama_daerah: {
+                contains: keyword,
+                mode: 'insensitive'
+              }
+            }
+          }
           ]
         },
         include: {
