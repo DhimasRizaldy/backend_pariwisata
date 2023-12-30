@@ -42,6 +42,7 @@ model Wisata {
   tanggal     DateTime
   userId      Int
   urlvideo    String
+  urlmaps     String
   foto_wisata String?
   rekomendasi Rekomendasi[]
   ulasan      Ulasan[]

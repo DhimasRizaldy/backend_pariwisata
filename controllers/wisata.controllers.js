@@ -11,7 +11,7 @@ module.exports = {
   // create wisata
   createWisata: async (req, res, next) => {
     try {
-      let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket, urlvideo } = req.body;
+      let { nama_wisata, alamat, deskripsi, jam_operasi, harga_tiket, urlvideo, urlmaps } = req.body;
 
       let kategoriId = parseInt(req.body.kategoriId, 10); // Mengonversi ke integer
       let daerahId = parseInt(req.body.daerahId, 10); // Mengonversi ke integer
@@ -44,6 +44,7 @@ module.exports = {
           tanggal,
           userId,
           urlvideo,
+          urlmaps,
           foto_wisata: url,
         },
       });
@@ -125,7 +126,8 @@ module.exports = {
         deskripsi,
         jam_operasi,
         harga_tiket,
-        urlvideo
+        urlvideo,
+        urlmaps
       } = req.body;
 
       let kategoriId = parseInt(req.body.kategoriId, 10);
@@ -176,6 +178,7 @@ module.exports = {
           tanggal,
           userId,
           urlvideo,
+          urlmaps,
           foto_wisata: url
         }
       });
