@@ -1,8 +1,6 @@
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-// const { PrismaClient } = require('../prisma/generated/client');
-// const prisma = new PrismaClient();
 
 const imagekit = require('../libs/imagekit');
 const path = require('path');
@@ -12,15 +10,24 @@ module.exports = {
   // update profile
   updateProfile: async (req, res, next) => {
     try {
-      let { id } = req.params;
-      let { userId, nama, jenis_kelamin, alamat } = req.body;
+      const id = req.user.id;
 
+      if (!id) {
+        return res.status(400).json({
+          status: false,
+          message: "Bad Request",
+          err: 'ID profile tidak valid!',
+          data: null
+        });
+      }
+
+      let { userId, nama, jenis_kelamin, alamat } = req.body;
       userId = Number(userId);
 
       let url = null;
 
-      let profileExist = await prisma.profile.findUnique({
-        where: { id: Number(id) }
+      const profileExist = await prisma.profile.findUnique({
+        where: { id: id }
       });
 
       if (!profileExist) {
@@ -45,7 +52,7 @@ module.exports = {
         url = uploadedUrl;
       }
 
-      let updateProfile = await prisma.profile.update({
+      const updatedProfile = await prisma.profile.update({
         where: { id: Number(id) },
         data: {
           user: { connect: { id: userId } },
@@ -60,7 +67,7 @@ module.exports = {
         status: true,
         message: 'Data profile sukses diperbarui!',
         err: null,
-        data: { updateProfile }
+        data: { updatedProfile }
       });
 
     } catch (err) {
@@ -71,7 +78,7 @@ module.exports = {
   // delete image
   deleteImage: async (req, res, next) => {
     try {
-      let { id } = req.params;
+      const { id } = req.profile;
 
       let updateOperation = await prisma.profile.update({
         where: { id: Number(id) },
@@ -93,7 +100,7 @@ module.exports = {
   // delete image
   deleteImage: async (req, res, next) => {
     try {
-      let { id } = req.params;
+      const { id } = req.profile;
 
       let updateOperation = await prisma.profile.update({
         where: { id: Number(id) },
@@ -109,6 +116,50 @@ module.exports = {
       });
     } catch (err) {
       next(err);
+    }
+  },
+
+  getProfile: async (req, res, next) => {
+    const { id } = req.user;
+    try {
+      let user = await prisma.user.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found',
+          err: null,
+          data: null,
+        });
+      }
+
+      let profile = await prisma.profile.findUnique({
+        where: {
+          userId: id,
+        },
+      });
+
+      if (!profile) {
+        return res.status(404).json({
+          success: false,
+          message: 'Profile not found',
+          err: null,
+          data: null,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully get user profile',
+        err: null,
+        data: profile,
+      });
+    } catch (error) {
+      next(error);
     }
   }
 }

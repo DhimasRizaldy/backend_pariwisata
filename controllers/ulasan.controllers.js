@@ -11,7 +11,7 @@ module.exports = {
   // create ulasan 
   createUlasan: async (req, res, next) => {
     try {
-      let userId = parseInt(req.body.userId, 10);
+      const userId = req.user.id;
       let wisataId = parseInt(req.body.wisataId, 10);
       let { judul, isi_ulasan } = req.body;
       let tanggal_ulasan = new Date().toISOString();
@@ -23,10 +23,12 @@ module.exports = {
       if (imageFile) {
         const strFile = imageFile.buffer.toString('base64');
 
-        const { url } = await imagekit.upload({
+        const { url: uploadedUrl } = await imagekit.upload({
           fileName: Date.now() + path.extname(imageFile.originalname),
           file: strFile,
         });
+
+        url = uploadedUrl;
       }
 
       let newUlasan = await prisma.ulasan.create({
@@ -36,7 +38,7 @@ module.exports = {
           tanggal_ulasan,
           judul,
           isi_ulasan,
-          foto_ulasan: url,
+          foto_ulasan: url || ""
         }
       });
 
@@ -44,7 +46,7 @@ module.exports = {
         status: true,
         message: "Data ulasan berhasil dibuat!",
         data: newUlasan
-      })
+      });
 
     } catch (err) {
       next(err);
@@ -55,7 +57,7 @@ module.exports = {
   updateUlasan: async (req, res, next) => {
     try {
       let { id } = req.params;
-      let userId = parseInt(req.body.userId, 10);
+      const userId = req.user.id;
       let wisataId = parseInt(req.body.wisataId, 10);
       let { judul, isi_ulasan } = req.body;
       let tanggal_ulasan = new Date().toISOString();
@@ -96,7 +98,7 @@ module.exports = {
           tanggal_ulasan,
           judul,
           isi_ulasan,
-          foto_ulasan: url,
+          foto_ulasan: url || ""
         }
       });
 

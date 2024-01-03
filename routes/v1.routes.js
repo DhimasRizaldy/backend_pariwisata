@@ -1,7 +1,9 @@
 const router = require('express').Router();
 
 //  import middleware auth
-const { restrict } = require('../middlewares/auth.middlewares');
+const { verifyToken } = require('../middlewares/auth.middlewares');
+
+const verifyAdmin = require('../middlewares/verifyAdmin');
 
 // import google_oauth2
 const { passport, googleOauth2 } = require('../libs/passport');
@@ -14,7 +16,7 @@ const { image } = require('../libs/multer')
 const { register, login, whoami, createUser, getAllUser, getDetailUser, updateUser } = require('../controllers/user.controllers');
 
 // import profile controllers
-const { updateProfile, deleteImage } = require('../controllers/profile.controllers')
+const { updateProfile, deleteImage, getProfile } = require('../controllers/profile.controllers')
 
 // import wisata controllers
 const { createWisata, getAllWisata, getDetailWisata, updateWisata, deleteWisata, searchWisata, kategoriWisata } = require("../controllers/wisata.controllers");
@@ -49,7 +51,7 @@ router.get("/", (req, res) => {
 // Router url register & login
 router.post('/auth/register', register);
 router.post('/auth/login', login);
-router.get('/auth/whoami', restrict, whoami);
+router.get('/auth/whoami', verifyToken, whoami);
 
 // Router register & login google ouath
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -62,8 +64,9 @@ router.get('/user/:id', getDetailUser);
 router.put('/user/:id', updateUser);
 
 // Router url profile
-router.put('/profile/:id', image.single('foto_profile'), updateProfile);
-router.put('/profileImage/:id', deleteImage);
+router.put('/profile', verifyToken, image.single('foto_profile'), updateProfile);
+router.put('/profileImage/', verifyToken, deleteImage);
+router.get('/profile', verifyToken, getProfile);
 
 // Router url wisata
 router.post("/wisata", image.single('foto_wisata'), createWisata);
@@ -94,8 +97,8 @@ router.delete("/rekomendasi/:id", deleteRekomendasi);
 router.get("/search_rekomendasi_wisata", searchRekomendasiWisata);
 
 // Router url ulasan
-router.post("/ulasan", image.single('foto_ulasan'), createUlasan);
-router.put('/ulasan/:id', image.single('foto_ulasan'), updateUlasan);
+router.post("/ulasan", verifyToken, image.single('foto_ulasan'), createUlasan);
+router.put('/ulasan/:id', verifyToken, image.single('foto_ulasan'), updateUlasan);
 router.get('/ulasan/:id', getDetailUlasan);
 router.delete('/ulasan/:id', deleteUlasan);
 router.get('/ulasan', getAllUlasan);
