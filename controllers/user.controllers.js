@@ -12,7 +12,7 @@ module.exports = {
   // register
   register: async (req, res, next) => {
     try {
-      let { email, password, password_confirmation } = req.body;
+      let { nama, email, password, password_confirmation } = req.body;
 
       let role = 'user';
 
@@ -50,7 +50,7 @@ module.exports = {
       await prisma.profile.create({
         data: {
           userId: userId,
-          nama: null,
+          nama: nama,
           jenis_kelamin: null,
           alamat: null,
           foto_profile: null

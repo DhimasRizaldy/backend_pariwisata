@@ -1,11 +1,12 @@
 ### register
-POST https://backend-pariwisata.onrender.com/api/v1/auth/register/
+POST http://localhost:3000/api/v1/auth/register/
 Content-Type: application/json
 
 {
-  "email": "usertest03@gmail.com",
-  "password": "user02",
-  "password_confirmation": "user02"
+  "nama":"dani adit",
+  "email": "dani123@gmail.com",
+  "password": "dani123",
+  "password_confirmation": "dani123"
 }
 
 ### register
